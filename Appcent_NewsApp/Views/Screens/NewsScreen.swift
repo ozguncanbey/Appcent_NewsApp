@@ -18,6 +18,8 @@ final class NewsScreen: UIViewController {
     // MARK: - Variables
     private let viewModel = NewsViewModel()
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

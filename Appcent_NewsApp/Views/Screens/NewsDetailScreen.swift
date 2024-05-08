@@ -10,6 +10,8 @@ import UIKit
 // MARK: - Protocol
 protocol NewsDetailScreenProtocol: AnyObject {
     func configureVC()
+    func hideNC()
+    func showNC()
 }
 
 // MARK: - Main Func
@@ -24,6 +26,14 @@ final class NewsDetailScreen: UIViewController {
         viewModel.view = self
         viewModel.viewDidLoad()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.viewWillAppear()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        viewModel.viewWillDisappear()
+    }
 }
 
 // MARK: - Extension
@@ -31,5 +41,13 @@ extension NewsDetailScreen: NewsDetailScreenProtocol {
     
     func configureVC() {
         view.backgroundColor = .systemBackground
+    }
+    
+    func hideNC() {
+        navigationController?.isNavigationBarHidden = true
+    }
+    
+    func showNC() {
+        navigationController?.isNavigationBarHidden = false
     }
 }

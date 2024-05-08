@@ -10,7 +10,7 @@ import Foundation
 final class WebService {
     
     /// Downloads news and returns article arrays
-    func downloadNews(for query: String, at page: Int, completion: @escaping ([Articles]?) -> ()) {
+    func downloadNews(for query: String, at page: Int, completion: @escaping ([Article]?) -> ()) {
         guard let url = URL(string: API_URLs.newsURL(for: query, at: page)) else { return }
         
         NetworkManager.shared.download(url: url) { [weak self] result in
@@ -31,7 +31,7 @@ final class WebService {
     }
     
     // Decode the news json and returns data
-    private func handleWithData(_ data: Data) -> [Articles]? {
+    private func handleWithData(_ data: Data) -> [Article]? {
         do {
             let news = try JSONDecoder().decode(News.self, from: data)
             return news.articles

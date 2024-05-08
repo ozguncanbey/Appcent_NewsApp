@@ -19,7 +19,7 @@ final class NewsViewModel {
     // MARK: - Variables
     weak var view: NewsScreenProtocol?
     private let service = WebService()
-    var articles: [Articles] = []
+    var articles: [Article] = []
 }
 
 // MARK: - Extension
@@ -27,7 +27,8 @@ extension NewsViewModel: NewsViewModelProtocol {
     
     func viewDidLoad() {
         view?.configureVC()
-        downloadNews(for: "besiktas", at: 1)
+        view?.configureSearchBar()
+        view?.configureTableView()
     }
     
     func downloadNews(for query: String, at page: Int) {
@@ -35,8 +36,8 @@ extension NewsViewModel: NewsViewModelProtocol {
             guard let self = self else { return }
             guard let returnedNews = returnedNews else { return }
             
-            articles.append(contentsOf: returnedNews)
-            print(articles)
+            self.articles.append(contentsOf: returnedNews)
+            self.view?.reloadTableView()
         }
     }
 }

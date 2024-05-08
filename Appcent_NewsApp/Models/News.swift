@@ -11,11 +11,11 @@ import Foundation
 struct News: Codable {
     let status: String?
     let totalResults: Int?
-    let articles: [Articles]?
+    let articles: [Article]?
 }
 
 // MARK: - Article
-struct Articles: Codable {
+struct Article: Codable {
     let source: Source?
     let author: String?
     let title: String?
@@ -32,7 +32,7 @@ struct Source: Codable {
     let name: String?
 }
 
-extension Articles {
+extension Article {
     func formattedPublishedDate() -> String? {
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"

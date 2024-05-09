@@ -28,6 +28,7 @@
 		7776FF532BEBCEB800AC1BDC /* NewsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7776FF522BEBCEB800AC1BDC /* NewsImageView.swift */; };
 		7776FF552BEBD0B400AC1BDC /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7776FF542BEBD0B400AC1BDC /* PlaceholderView.swift */; };
 		77EE098F2BECF10F00FB431E /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EE098E2BECF10F00FB431E /* UserDefaultsManager.swift */; };
+		77EE09912BED020E00FB431E /* EmptyFavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EE09902BED020E00FB431E /* EmptyFavoritesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		7776FF522BEBCEB800AC1BDC /* NewsImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsImageView.swift; sourceTree = "<group>"; };
 		7776FF542BEBD0B400AC1BDC /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
 		77EE098E2BECF10F00FB431E /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		77EE09902BED020E00FB431E /* EmptyFavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyFavoritesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +182,7 @@
 				7776FF502BEBBC2300AC1BDC /* NewsCell.swift */,
 				7776FF522BEBCEB800AC1BDC /* NewsImageView.swift */,
 				7776FF542BEBD0B400AC1BDC /* PlaceholderView.swift */,
+				77EE09902BED020E00FB431E /* EmptyFavoritesView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 				7776FF342BEBAB5400AC1BDC /* NewsScreen.swift in Sources */,
 				7776FF3C2BEBADAA00AC1BDC /* FavoritesScreen.swift in Sources */,
 				7776FF362BEBABBF00AC1BDC /* NewsViewModel.swift in Sources */,
+				77EE09912BED020E00FB431E /* EmptyFavoritesView.swift in Sources */,
 				7776FF512BEBBC2300AC1BDC /* NewsCell.swift in Sources */,
 				7776FF4D2BEBBA7700AC1BDC /* CGFloat+Ext.swift in Sources */,
 				7776FF382BEBAC9C00AC1BDC /* NewsDetailScreen.swift in Sources */,

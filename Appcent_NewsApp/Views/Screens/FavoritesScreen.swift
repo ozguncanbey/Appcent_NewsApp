@@ -10,8 +10,10 @@ import UIKit
 // MARK: - Protocol
 protocol FavoritesScreenProtocol: AnyObject {
     func configureVC()
+    func configureEmptyFavoritesView()
     func configureTableView()
     func reloadTableView()
+    func controlData()
 }
 
 // MARK: - Main Func
@@ -20,6 +22,7 @@ final class FavoritesScreen: UIViewController {
     // MARK: - Variables
     private let viewModel = FavoritesViewModel()
     
+    private var emptyFavoritesView: EmptyFavoritesView!
     private var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -41,6 +44,18 @@ extension FavoritesScreen: FavoritesScreenProtocol {
         view.backgroundColor = .systemBackground
     }
     
+    func configureEmptyFavoritesView() {
+        emptyFavoritesView = EmptyFavoritesView(frame: .zero)
+        view.addSubview(emptyFavoritesView)
+        
+        NSLayoutConstraint.activate([
+            emptyFavoritesView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyFavoritesView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            emptyFavoritesView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 30),
+            emptyFavoritesView.heightAnchor.constraint(equalToConstant: 250)
+        ])
+    }
+    
     func configureTableView() {
         tableView = UITableView(frame: .zero, style: .plain)
         view.addSubview(tableView)
@@ -60,6 +75,16 @@ extension FavoritesScreen: FavoritesScreenProtocol {
     func reloadTableView() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
+        }
+    }
+    
+    func controlData() {
+        if viewModel.favoritedArticles.isEmpty {
+            emptyFavoritesView.isHidden = false
+            tableView.isHidden = true
+        } else {
+            emptyFavoritesView.isHidden = true
+            tableView.isHidden = false
         }
     }
 }

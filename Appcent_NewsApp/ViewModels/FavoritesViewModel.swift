@@ -25,12 +25,15 @@ extension FavoritesViewModel: FavoritesViewModelProtocol {
     
     func viewDidLoad() {
         view?.configureVC()
+        view?.configureEmptyFavoritesView()
         view?.configureTableView()
+        view?.controlData()
         getfavoritedArticles()
     }
     
     func getfavoritedArticles() {
         favoritedArticles = UserDefaultsManager.shared.getFavorites()
+        view?.controlData()
         view?.reloadTableView()
     }
 }

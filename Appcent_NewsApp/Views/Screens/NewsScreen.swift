@@ -66,11 +66,12 @@ extension NewsScreen: NewsScreenProtocol {
     }
     
     func configureTableView() {
-        tableView = UITableView(frame: .zero, style: .grouped)
+        tableView = UITableView(frame: .zero, style: .plain)
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         tableView.allowsMultipleSelection = false
+        tableView.separatorStyle = .none
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -78,18 +79,11 @@ extension NewsScreen: NewsScreenProtocol {
         tableView.register(NewsCell.self, forCellReuseIdentifier: NewsCell.reuseID)
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 10),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-    }
-    
-    func showPlaceholderView() -> UIView {
-        let placeholderView = PlaceholderView(frame: .zero)
-        view.addSubview(placeholderView)
-        
-        return placeholderView
     }
     
     func reloadTableView() {

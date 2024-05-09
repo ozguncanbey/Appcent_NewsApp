@@ -14,9 +14,11 @@ protocol NewsDetailScreenProtocol: AnyObject {
 
 // MARK: - Main Func
 final class NewsDetailScreen: UIViewController {
-
+    
     // MARK: - Variables
     private let viewModel = NewsDetailViewModel()
+    
+    private var favoriteButton: UIBarButtonItem!
     
     private let newsImageView = NewsImageView(frame: .zero)
     
@@ -97,9 +99,13 @@ final class NewsDetailScreen: UIViewController {
     
     private var url: String!
     
+    private var isFavorited: Bool!
+    
+    private let userDefault = UserDefaultsManager.shared
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         viewModel.view = self
         viewModel.viewDidLoad()
     }
@@ -113,6 +119,7 @@ final class NewsDetailScreen: UIViewController {
     }
     
     func set(article: Article) {
+        viewModel.article = article
         newsImageView.downloadImage(article: article)
         authorLabel.text = article.author
         dateLabel.text = article.formattedPublishedDate()
@@ -121,6 +128,7 @@ final class NewsDetailScreen: UIViewController {
         descriptionLabel.text = article.description
         contentLabel.text = article.content
         url = article._url
+        isFavorited = userDefault.isArticleFavorited(article)
     }
 }
 
@@ -130,16 +138,24 @@ extension NewsDetailScreen: NewsDetailScreenProtocol {
     func configureVC() {
         view.backgroundColor = .systemBackground
         
+        configureFavoriteButton()
+        updateFavoriteButtonIcon()
+        
         addSubviews()
         layoutUI()
         
         goToURLButton.addTarget(self, action: #selector(goToURL), for: .touchUpInside)
     }
     
+    private func configureFavoriteButton() {
+        favoriteButton = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(favoriteButtonTapped))
+        navigationItem.rightBarButtonItem = favoriteButton
+    }
+    
     private func addSubviews() {
         view.addSubview(newsImageView)
         view.addSubview(authorLabel)
-//        view.addSubview(sourceLabel)
+        //        view.addSubview(sourceLabel)
         view.addSubview(dateLabel)
         view.addSubview(titleLabel)
         view.addSubview(descriptionLabel)
@@ -148,37 +164,55 @@ extension NewsDetailScreen: NewsDetailScreenProtocol {
     }
     
     private func layoutUI() {
+        let padding: CGFloat = 10
+        
         NSLayoutConstraint.activate([
-            newsImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            newsImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
-            newsImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            newsImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
+            newsImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding / 2),
+            newsImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding / 2),
             newsImageView.heightAnchor.constraint(equalToConstant: CGFloat.dHeight / 4),
             
-            authorLabel.topAnchor.constraint(equalTo: newsImageView.bottomAnchor, constant: 20),
+            authorLabel.topAnchor.constraint(equalTo: newsImageView.bottomAnchor, constant: 2 * padding),
             authorLabel.leadingAnchor.constraint(equalTo: newsImageView.leadingAnchor),
             authorLabel.widthAnchor.constraint(equalToConstant: CGFloat.dWidth / 2),
             
-//            sourceLabel.topAnchor.constraint(equalTo: authorLabel.topAnchor),
-//            sourceLabel.leadingAnchor.constraint(equalTo: authorLabel.trailingAnchor),
+            //            sourceLabel.topAnchor.constraint(equalTo: authorLabel.topAnchor),
+            //            sourceLabel.leadingAnchor.constraint(equalTo: authorLabel.trailingAnchor),
             
-            dateLabel.topAnchor.constraint(equalTo: newsImageView.bottomAnchor, constant: 20),
+            dateLabel.topAnchor.constraint(equalTo: newsImageView.bottomAnchor, constant: 2 * padding),
             dateLabel.trailingAnchor.constraint(equalTo: newsImageView.trailingAnchor),
             
-            titleLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 20),
+            titleLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 2 * padding),
             titleLabel.leadingAnchor.constraint(equalTo: newsImageView.leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: newsImageView.trailingAnchor),
             
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding),
             descriptionLabel.leadingAnchor.constraint(equalTo: newsImageView.leadingAnchor),
             descriptionLabel.trailingAnchor.constraint(equalTo: newsImageView.trailingAnchor),
             
-            contentLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10),
+            contentLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: padding),
             contentLabel.leadingAnchor.constraint(equalTo: newsImageView.leadingAnchor),
             contentLabel.trailingAnchor.constraint(equalTo: newsImageView.trailingAnchor),
             
-            goToURLButton.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 5),
+            goToURLButton.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: padding / 2),
             goToURLButton.leadingAnchor.constraint(equalTo: newsImageView.leadingAnchor)
         ])
+    }
+    
+    private func updateFavoriteButtonIcon() {
+        favoriteButton.image = isFavorited ?? false ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+    }
+    
+    @objc private func favoriteButtonTapped() {
+        if !isFavorited {
+            userDefault.addFavorite(viewModel.article)
+        } else {
+            userDefault.removeFavorite(viewModel.article)
+        }
+        
+        isFavorited.toggle()
+        
+        updateFavoriteButtonIcon()
     }
     
     @objc private func goToURL() {

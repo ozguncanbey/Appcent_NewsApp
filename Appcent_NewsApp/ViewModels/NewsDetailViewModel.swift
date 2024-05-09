@@ -17,6 +17,7 @@ protocol NewsDetailViewModelProtocol {
 final class NewsDetailViewModel {
     // MARK: - Variables
     weak var view: NewsDetailScreenProtocol?
+    var article: Article!
 }
 
 // MARK: - Extension

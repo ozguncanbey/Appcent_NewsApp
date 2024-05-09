@@ -10,19 +10,27 @@ import UIKit
 // MARK: - Protocol
 protocol FavoritesScreenProtocol: AnyObject {
     func configureVC()
+    func configureTableView()
+    func reloadTableView()
 }
 
 // MARK: - Main Func
 final class FavoritesScreen: UIViewController {
-
+    
     // MARK: - Variables
     private let viewModel = FavoritesViewModel()
     
+    private var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         viewModel.view = self
         viewModel.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.getfavoritedArticles()
     }
 }
 
@@ -32,4 +40,53 @@ extension FavoritesScreen: FavoritesScreenProtocol {
     func configureVC() {
         view.backgroundColor = .systemBackground
     }
+    
+    func configureTableView() {
+        tableView = UITableView(frame: .zero, style: .plain)
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        tableView.allowsMultipleSelection = false
+        tableView.separatorStyle = .none
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        tableView.frame = view.bounds
+        
+        tableView.register(NewsCell.self, forCellReuseIdentifier: NewsCell.reuseID)
+    }
+    
+    func reloadTableView() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
 }
+
+extension FavoritesScreen: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel.favoritedArticles.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.reuseID, for: indexPath) as! NewsCell
+        cell.set(article: viewModel.favoritedArticles[indexPath.row])
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let newsDetailScreen = NewsDetailScreen()
+        newsDetailScreen.set(article: viewModel.favoritedArticles[indexPath.row])
+        
+        navigationController?.pushViewController(newsDetailScreen, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        CGFloat.dHeight / 6
+    }
+}
+

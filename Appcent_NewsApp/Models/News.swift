@@ -24,12 +24,20 @@ struct Article: Codable {
     let urlToImage: String?
     let publishedAt: String?
     let content: String?
+    
+    var _url: String {
+        url ?? "No URL"
+    }
 }
 
 // MARK: - Source
 struct Source: Codable {
     let id: String?
     let name: String?
+    
+    var _name: String {
+        "- \(name ?? "No source")"
+    }
 }
 
 extension Article {

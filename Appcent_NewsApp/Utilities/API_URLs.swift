@@ -9,7 +9,7 @@ import Foundation
 
 enum API_URLs {
     
-    static let apiKey = "fe5dd6ca68374ea4aff8c73550a00aaf"
+    static let apiKey = "90f78b5e459f4557a6d285161db89387" // my key = fe5dd6ca68374ea4aff8c73550a00aaf
     static let baseURL = "https://newsapi.org/v2/"
     
     static func top_headlinesURL(at page: Int) -> String {

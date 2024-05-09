@@ -11,8 +11,6 @@ import Foundation
 protocol NewsDetailViewModelProtocol {
     var view: NewsDetailScreenProtocol? { get set }
     func viewDidLoad()
-    func viewWillAppear()
-    func viewWillDisappear()
 }
 
 // MARK: - Main Func
@@ -26,13 +24,5 @@ extension NewsDetailViewModel: NewsDetailViewModelProtocol {
     
     func viewDidLoad() {
         view?.configureVC()
-    }
-    
-    func viewWillAppear() {
-        view?.hideNC()
-    }
-    
-    func viewWillDisappear() {
-        view?.showNC()
     }
 }

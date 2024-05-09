@@ -17,7 +17,7 @@ final class NewsCell: UITableViewCell {
         let label = UILabel()
         
         label.text = "News Title"
-        label.font = UIFont.systemFont(ofSize: 12, weight: .semibold, width: .expanded)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .semibold, width: .compressed)
         label.numberOfLines = 2
         label.textColor = .systemBlue
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +29,7 @@ final class NewsCell: UITableViewCell {
         let label = UILabel()
         
         label.text = "News Description Label"
-        label.font = UIFont.systemFont(ofSize: 10, weight: .medium, width: .standard)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium, width: .compressed)
         label.numberOfLines = 3
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -40,7 +40,7 @@ final class NewsCell: UITableViewCell {
         let label = UILabel()
         
         label.text = "News Date Label"
-        label.font = UIFont.systemFont(ofSize: 8, weight: .light, width: .standard)
+        label.font = UIFont.systemFont(ofSize: 8, weight: .light, width: .condensed)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -100,9 +100,9 @@ final class NewsCell: UITableViewCell {
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: padding / 2),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             titleLabel.trailingAnchor.constraint(equalTo: newsImageView.leadingAnchor, constant: -2 * padding),
-            titleLabel.bottomAnchor.constraint(equalTo: centerYAnchor),
+//            titleLabel.bottomAnchor.constraint(equalTo: centerYAnchor),
             
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding / 2.5),
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding / 5),
             descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             descriptionLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
 //            descriptionLabel.bottomAnchor.constraint(equalTo: dateLabel.topAnchor, constant: -padding),

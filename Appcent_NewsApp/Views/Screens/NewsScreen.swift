@@ -133,6 +133,7 @@ extension NewsScreen: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let newsDetailScreen = NewsDetailScreen()
+        newsDetailScreen.set(article: viewModel.article[indexPath.row])
         
         navigationController?.pushViewController(newsDetailScreen, animated: true)
     }

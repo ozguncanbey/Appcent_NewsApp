@@ -21,6 +21,8 @@ final class NewsScreen: UIViewController {
     // MARK: - Variables
     private let viewModel = NewsViewModel()
     
+    
+    
     private var tableView: UITableView!
     private var searchBar: UISearchBar!
     
@@ -123,10 +125,10 @@ extension NewsScreen: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let newsDetailScreen = NewsDetailScreen()
-        newsDetailScreen.set(article: viewModel.article[indexPath.row])
-        
-        navigationController?.pushViewController(newsDetailScreen, animated: true)
+        DispatchQueue.main.async {
+            let newsDetailScreen = NewsDetailScreen(article: self.viewModel.article[indexPath.row])
+            self.navigationController?.pushViewController(newsDetailScreen, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

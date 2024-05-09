@@ -104,10 +104,10 @@ extension FavoritesScreen: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let newsDetailScreen = NewsDetailScreen()
-        newsDetailScreen.set(article: viewModel.favoritedArticles[indexPath.row])
-        
-        navigationController?.pushViewController(newsDetailScreen, animated: true)
+        DispatchQueue.main.async {
+            let newsDetailScreen = NewsDetailScreen(article: self.viewModel.favoritedArticles[indexPath.row])
+            self.navigationController?.pushViewController(newsDetailScreen, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

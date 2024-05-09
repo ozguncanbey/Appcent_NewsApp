@@ -118,7 +118,8 @@ final class NewsDetailScreen: UIViewController {
         tabBarController?.tabBar.isHidden = false
     }
     
-    func set(article: Article) {
+    init(article: Article) {
+        super.init(nibName: nil, bundle: nil)
         viewModel.article = article
         newsImageView.downloadImage(article: article)
         authorLabel.text = article.author
@@ -129,6 +130,10 @@ final class NewsDetailScreen: UIViewController {
         contentLabel.text = article.content
         url = article._url
         isFavorited = userDefault.isArticleFavorited(article)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 

@@ -40,6 +40,7 @@ struct Source: Codable {
     }
 }
 
+// MARK: - Extension
 extension Article {
     func formattedPublishedDate() -> String? {
         let inputFormatter = DateFormatter()

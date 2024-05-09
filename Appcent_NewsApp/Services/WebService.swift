@@ -46,7 +46,7 @@ final class WebService {
         print(error.localizedDescription)
     }
     
-    // Decode the news from json and returns data as Articles array
+    // Decode the news from json and returns data as Article array
     private func handleWithData(_ data: Data) -> [Article]? {
         do {
             let news = try JSONDecoder().decode(News.self, from: data)

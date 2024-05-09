@@ -24,9 +24,6 @@ final class NewsScreen: UIViewController {
     private var tableView: UITableView!
     private var searchBar: UISearchBar!
     
-//    private var query: String = ""
-//    private var page: Int = 1
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

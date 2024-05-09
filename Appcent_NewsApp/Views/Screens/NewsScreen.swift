@@ -24,8 +24,8 @@ final class NewsScreen: UIViewController {
     private var tableView: UITableView!
     private var searchBar: UISearchBar!
     
-    private var query: String = ""
-    private var page: Int = 1
+//    private var query: String = ""
+//    private var page: Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,32 +102,30 @@ extension NewsScreen: NewsScreenProtocol {
 extension NewsScreen: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if !searchText.isEmpty {
-            query = searchText
-            viewModel.downloadNews(for: query, at: page)
+        if searchText != "" {
+            viewModel.getSerchedNews(for: searchText, at: 1)
         }
         else {
-            tableView.backgroundView = showPlaceholderView()
+            viewModel.getTopHeadlines(at: 1)
         }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.text = ""
+        viewModel.getTopHeadlines(at: 1)
     }
 }
 
 extension NewsScreen: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.articles.count
+        viewModel.article.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.reuseID, for: indexPath) as! NewsCell
-        
-//        cell.set(article: viewModel.articles[indexPath.row])
-        
+        cell.set(article: viewModel.article[indexPath.row])
         return cell
     }
     
@@ -140,6 +138,6 @@ extension NewsScreen: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        CGFloat.dHeight / 10
+        CGFloat.dHeight / 6
     }
 }

@@ -11,7 +11,8 @@ import Foundation
 protocol NewsViewModelProtocol {
     var view: NewsScreenProtocol? { get set }
     func viewDidLoad()
-    func downloadNews(for query: String, at page: Int)
+    func getSerchedNews(for query: String, at page: Int)
+    func getTopHeadlines(at page: Int)
 }
 
 // MARK: - Main Func
@@ -19,7 +20,7 @@ final class NewsViewModel {
     // MARK: - Variables
     weak var view: NewsScreenProtocol?
     private let service = WebService()
-    var articles: [Article] = []
+    var article: [Article] = []
 }
 
 // MARK: - Extension
@@ -29,14 +30,25 @@ extension NewsViewModel: NewsViewModelProtocol {
         view?.configureVC()
         view?.configureSearchBar()
         view?.configureTableView()
+        getTopHeadlines(at: 1)
     }
     
-    func downloadNews(for query: String, at page: Int) {
-        service.downloadNews(for: query, at: page) { [weak self] returnedNews in
+    func getTopHeadlines(at page: Int) {
+        service.downloadTopHeadlines(at: page) { [weak self] returnedNews in
             guard let self = self else { return }
             guard let returnedNews = returnedNews else { return }
             
-            self.articles.append(contentsOf: returnedNews)
+            self.article = returnedNews
+            self.view?.reloadTableView()
+        }
+    }
+    
+    func getSerchedNews(for query: String, at page: Int) {
+        service.downloadSearchedNews(for: query, at: page) { [weak self] returnedNews in
+            guard let self = self else { return }
+            guard let returnedNews = returnedNews else { return }
+            
+            self.article = returnedNews
             self.view?.reloadTableView()
         }
     }

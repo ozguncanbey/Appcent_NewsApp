@@ -24,6 +24,8 @@ final class NewsImageView: UIImageView {
         layer.cornerRadius = 16
         clipsToBounds = true
         contentMode = .scaleAspectFill
+        
+        backgroundColor = .systemBlue
     }
     
     /// Downloads image with generic Network Manager function

@@ -9,9 +9,25 @@ import Foundation
 
 final class WebService {
     
-    /// Downloads news and returns article arrays
-    func downloadNews(for query: String, at page: Int, completion: @escaping ([Article]?) -> ()) {
-        guard let url = URL(string: API_URLs.newsURL(for: query, at: page)) else { return }
+    /// Downloads top headlines news and returns article arrays
+    func downloadTopHeadlines(at page: Int, completion: @escaping ([Article]?) -> ()) {
+        guard let url = URL(string: API_URLs.top_headlinesURL(at: page)) else { return }
+        
+        NetworkManager.shared.download(url: url) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let data):
+                completion(handleWithData(data))
+            case .failure(let error):
+                handleWithError(error)
+            }
+        }
+    }
+    
+    /// Downloads searched news and returns article arrays
+    func downloadSearchedNews(for query: String, at page: Int, completion: @escaping ([Article]?) -> ()) {
+        guard let url = URL(string: API_URLs.searchedNewsURL(for: query, at: page)) else { return }
         
         NetworkManager.shared.download(url: url) { [weak self] result in
             guard let self = self else { return }
@@ -30,7 +46,7 @@ final class WebService {
         print(error.localizedDescription)
     }
     
-    // Decode the news json and returns data
+    // Decode the news from json and returns data as Articles array
     private func handleWithData(_ data: Data) -> [Article]? {
         do {
             let news = try JSONDecoder().decode(News.self, from: data)

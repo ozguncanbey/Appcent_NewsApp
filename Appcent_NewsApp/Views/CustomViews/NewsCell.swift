@@ -17,7 +17,9 @@ final class NewsCell: UITableViewCell {
         let label = UILabel()
         
         label.text = "News Title"
-        label.font = UIFont.systemFont(ofSize: 15, weight: .semibold, width: .expanded)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .semibold, width: .expanded)
+        label.numberOfLines = 2
+        label.textColor = .systemBlue
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -27,7 +29,8 @@ final class NewsCell: UITableViewCell {
         let label = UILabel()
         
         label.text = "News Description Label"
-        label.font = UIFont.systemFont(ofSize: 12, weight: .medium, width: .standard)
+        label.font = UIFont.systemFont(ofSize: 10, weight: .medium, width: .standard)
+        label.numberOfLines = 3
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -37,7 +40,7 @@ final class NewsCell: UITableViewCell {
         let label = UILabel()
         
         label.text = "News Date Label"
-        label.font = UIFont.systemFont(ofSize: 10, weight: .medium, width: .standard)
+        label.font = UIFont.systemFont(ofSize: 8, weight: .light, width: .standard)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -47,7 +50,7 @@ final class NewsCell: UITableViewCell {
         let label = UILabel()
         
         label.text = "News Source Label"
-        label.font = UIFont.systemFont(ofSize: 10, weight: .medium, width: .standard)
+        label.font = UIFont.systemFont(ofSize: 8, weight: .light, width: .standard)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -67,9 +70,9 @@ final class NewsCell: UITableViewCell {
     func set(article: Article) {
         newsImageView.downloadImage(article: article)
         titleLabel.text = article.title ?? "No Title"
-        descriptionLabel.text = article.content ?? "No Description"
+        descriptionLabel.text = article.description ?? "No Description"
         dateLabel.text = article.formattedPublishedDate() ?? "No Date"
-        sourceLabel.text = article.description ?? "No Source"
+        sourceLabel.text = article.source?.name ?? "No Source"
     }
     
     private func configure() {
@@ -86,6 +89,31 @@ final class NewsCell: UITableViewCell {
     }
     
     private func layoutUI() {
+        let padding: CGFloat = 10
         
+        NSLayoutConstraint.activate([
+            newsImageView.topAnchor.constraint(equalTo: topAnchor, constant: padding),
+            newsImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
+            newsImageView.widthAnchor.constraint(equalToConstant: CGFloat.dWidth / 3),
+            newsImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding),
+            
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: padding / 2),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
+            titleLabel.trailingAnchor.constraint(equalTo: newsImageView.leadingAnchor, constant: -2 * padding),
+            titleLabel.bottomAnchor.constraint(equalTo: centerYAnchor),
+            
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding / 2.5),
+            descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
+            descriptionLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+//            descriptionLabel.bottomAnchor.constraint(equalTo: dateLabel.topAnchor, constant: -padding),
+            
+            dateLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: padding),
+            dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2 * padding),
+            dateLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding),
+            
+            sourceLabel.topAnchor.constraint(equalTo: dateLabel.topAnchor),
+            sourceLabel.leadingAnchor.constraint(equalTo: dateLabel.trailingAnchor, constant: 2 * padding),
+            sourceLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding)
+        ])
     }
 }

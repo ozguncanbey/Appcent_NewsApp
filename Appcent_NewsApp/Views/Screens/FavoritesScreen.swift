@@ -119,6 +119,7 @@ extension FavoritesScreen: UITableViewDelegate, UITableViewDataSource {
             viewModel.removeArticle(viewModel.favoritedArticles[indexPath.row])
             viewModel.favoritedArticles.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            controlData()
             
             tableView.endUpdates()
         }

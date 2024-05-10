@@ -107,20 +107,14 @@ extension NewsScreen: NewsScreenProtocol {
     }
     
     func controlData() {
-        if viewModel.article.isEmpty {
-            emptyStateView.isHidden = false
-            tableView.isHidden = true
-        } else {
-            emptyStateView.isHidden = true
-            tableView.isHidden = false
-        }
+        NewsScreen.toggleViews(condition: viewModel.article.isEmpty, firstView: emptyStateView, secondView: tableView)
     }
 }
 
 extension NewsScreen: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText != "" {
+        if !searchText.isEmpty {
             emptyStateView.isHidden = true
             tableView.isHidden = false
             // page must be 1, article must be []
@@ -134,7 +128,6 @@ extension NewsScreen: UISearchBarDelegate {
             // query must be "", page must be 1, article must be []
             viewModel.reset(isQ: true, isP: true)
             
-            // TODO: - Empty State View
             controlData()
         }
     }
@@ -147,7 +140,6 @@ extension NewsScreen: UISearchBarDelegate {
         // query must be "", page must be 1, article must be []
         viewModel.reset(isQ: true, isP: true)
         
-        // TODO: - Empty State View
         controlData()
     }
     
@@ -181,14 +173,14 @@ extension NewsScreen: UITableViewDelegate, UITableViewDataSource {
         CGFloat.dHeight / 6
     }
     
-    // If indicator is at nearly %80 of the screen, getSerchedNews function will call
+    // If indicator is at nearly %80 of the screen, getSerchedNews function be called
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         let height = scrollView.frame.size.height
         
         if offsetY >= contentHeight - (2 * height) {
-            if viewModel.query != "" {
+            if !viewModel.query.isEmpty {
                 viewModel.page += 1
                 viewModel.getSerchedNews(for: viewModel.query, at: viewModel.page)
             }

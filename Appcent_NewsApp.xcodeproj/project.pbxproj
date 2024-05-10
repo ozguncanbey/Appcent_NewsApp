@@ -29,6 +29,7 @@
 		7776FF552BEBD0B400AC1BDC /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7776FF542BEBD0B400AC1BDC /* PlaceholderView.swift */; };
 		77EE098F2BECF10F00FB431E /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EE098E2BECF10F00FB431E /* UserDefaultsManager.swift */; };
 		77EE09912BED020E00FB431E /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EE09902BED020E00FB431E /* EmptyStateView.swift */; };
+		77F16E9A2BEE69DD00B70D09 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F16E992BEE69DD00B70D09 /* UIViewController+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		7776FF542BEBD0B400AC1BDC /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
 		77EE098E2BECF10F00FB431E /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		77EE09902BED020E00FB431E /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		77F16E992BEE69DD00B70D09 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 			children = (
 				7776FF4A2BEBBA7700AC1BDC /* CGFloat+Ext.swift */,
 				7776FF4C2BEBBA7700AC1BDC /* UIView+Ext.swift */,
+				77F16E992BEE69DD00B70D09 /* UIViewController+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 			files = (
 				7776FF4F2BEBBA7700AC1BDC /* UIView+Ext.swift in Sources */,
 				7776FF532BEBCEB800AC1BDC /* NewsImageView.swift in Sources */,
+				77F16E9A2BEE69DD00B70D09 /* UIViewController+Ext.swift in Sources */,
 				7776FF492BEBB57100AC1BDC /* WebService.swift in Sources */,
 				7776FF462BEBB29200AC1BDC /* API_URLs.swift in Sources */,
 				7776FF402BEBB0D000AC1BDC /* NetworkManager.swift in Sources */,

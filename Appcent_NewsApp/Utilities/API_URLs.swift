@@ -9,7 +9,7 @@ import Foundation
 
 enum API_URLs {
     
-    static let apiKey = "90f78b5e459f4557a6d285161db89387" /* sometimes there are issue with api's, both of them are below:
+    static let apiKey = "fe5dd6ca68374ea4aff8c73550a00aaf" /* sometimes there are issue with api's, both of them are below:
                                                            your example api = 90f78b5e459f4557a6d285161db89387, my api = fe5dd6ca68374ea4aff8c73550a00aaf */
     
     static let baseURL = "https://newsapi.org/v2/"

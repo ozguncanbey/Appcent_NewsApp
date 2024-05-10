@@ -22,7 +22,7 @@ final class FavoritesScreen: UIViewController {
     // MARK: - Variables
     private let viewModel = FavoritesViewModel()
     
-    private var emptyFavoritesView: EmptyStateView!
+    private var emptyStateView: EmptyStateView!
     private var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -45,14 +45,14 @@ extension FavoritesScreen: FavoritesScreenProtocol {
     }
     
     func configureEmptyStateView() {
-        emptyFavoritesView = EmptyStateView(imageSystemName: "heart.slash", message: "No Favorites Yet")
-        view.addSubview(emptyFavoritesView)
+        emptyStateView = EmptyStateView(imageSystemName: "heart.slash", message: "No Favorites Yet")
+        view.addSubview(emptyStateView)
         
         NSLayoutConstraint.activate([
-            emptyFavoritesView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            emptyFavoritesView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            emptyFavoritesView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 30),
-            emptyFavoritesView.heightAnchor.constraint(equalToConstant: 250)
+            emptyStateView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyStateView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            emptyStateView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 30),
+            emptyStateView.heightAnchor.constraint(equalToConstant: 250)
         ])
     }
     
@@ -79,13 +79,7 @@ extension FavoritesScreen: FavoritesScreenProtocol {
     }
     
     func controlData() {
-        if viewModel.favoritedArticles.isEmpty {
-            emptyFavoritesView.isHidden = false
-            tableView.isHidden = true
-        } else {
-            emptyFavoritesView.isHidden = true
-            tableView.isHidden = false
-        }
+        FavoritesScreen.toggleViews(condition: viewModel.favoritedArticles.isEmpty, firstView: emptyStateView, secondView: tableView)
     }
 }
 

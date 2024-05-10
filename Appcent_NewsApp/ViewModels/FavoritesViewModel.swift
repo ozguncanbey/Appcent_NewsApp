@@ -21,6 +21,7 @@ final class FavoritesViewModel {
     var favoritedArticles: [Article] = []
 }
 
+// MARK: - Extension
 extension FavoritesViewModel: FavoritesViewModelProtocol {
     
     func viewDidLoad() {

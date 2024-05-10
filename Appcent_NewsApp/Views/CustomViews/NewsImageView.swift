@@ -25,7 +25,7 @@ final class NewsImageView: UIImageView {
         clipsToBounds = true
         contentMode = .scaleAspectFill
         
-        backgroundColor = .systemBlue
+        backgroundColor = .systemOrange
     }
     
     /// Downloads image with generic Network Manager function

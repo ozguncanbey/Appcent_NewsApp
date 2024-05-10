@@ -59,7 +59,7 @@ final class NewsDetailScreen: UIViewController {
         label.text = "News Title"
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold, width: .expanded)
         label.numberOfLines = 0
-        label.textColor = .systemBlue
+        label.textColor = .systemOrange
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label

@@ -53,6 +53,8 @@ extension NewsScreen: NewsScreenProtocol {
         searchBar.autocorrectionType = .no
         searchBar.returnKeyType = .done
         
+        searchBar.tintColor = .orange
+        
         searchBar.delegate = self
         
         searchBar.showsCancelButton = true

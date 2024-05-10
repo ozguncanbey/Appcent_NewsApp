@@ -20,8 +20,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.rootViewController = createTabbar()
         window?.makeKeyAndVisible()
-        
-        UINavigationBar.appearance().tintColor = .systemBlue
     }
 
     private func createNewsNC() -> UINavigationController {
@@ -42,7 +40,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func createTabbar() -> UITabBarController {
         let tabbar                      = UITabBarController()
-        UITabBar.appearance().tintColor = .systemBlue
+        UITabBar.appearance().tintColor = .systemOrange
         tabbar.viewControllers          = [createNewsNC(), createFavoritesNC()]
         
         return tabbar

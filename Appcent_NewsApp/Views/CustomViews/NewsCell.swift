@@ -19,7 +19,7 @@ final class NewsCell: UITableViewCell {
         label.text = "News Title"
         label.font = UIFont.systemFont(ofSize: 14, weight: .semibold, width: .compressed)
         label.numberOfLines = 2
-        label.textColor = .systemBlue
+        label.textColor = .systemOrange
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label

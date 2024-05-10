@@ -10,7 +10,7 @@ import UIKit
 // MARK: - Protocol
 protocol FavoritesScreenProtocol: AnyObject {
     func configureVC()
-    func configureEmptyFavoritesView()
+    func configureEmptyStateView()
     func configureTableView()
     func reloadTableView()
     func controlData()
@@ -22,7 +22,7 @@ final class FavoritesScreen: UIViewController {
     // MARK: - Variables
     private let viewModel = FavoritesViewModel()
     
-    private var emptyFavoritesView: EmptyFavoritesView!
+    private var emptyFavoritesView: EmptyStateView!
     private var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -44,8 +44,8 @@ extension FavoritesScreen: FavoritesScreenProtocol {
         view.backgroundColor = .systemBackground
     }
     
-    func configureEmptyFavoritesView() {
-        emptyFavoritesView = EmptyFavoritesView(frame: .zero)
+    func configureEmptyStateView() {
+        emptyFavoritesView = EmptyStateView(imageSystemName: "heart.slash", message: "No Favorites Yet")
         view.addSubview(emptyFavoritesView)
         
         NSLayoutConstraint.activate([

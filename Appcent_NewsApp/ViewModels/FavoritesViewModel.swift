@@ -25,7 +25,7 @@ extension FavoritesViewModel: FavoritesViewModelProtocol {
     
     func viewDidLoad() {
         view?.configureVC()
-        view?.configureEmptyFavoritesView()
+        view?.configureEmptyStateView()
         view?.configureTableView()
         view?.controlData()
         getfavoritedArticles()

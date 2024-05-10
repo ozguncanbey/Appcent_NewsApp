@@ -12,7 +12,9 @@ protocol NewsScreenProtocol: AnyObject {
     func configureVC()
     func configureSearchBar()
     func configureTableView()
+    func configureEmptyStateView()
     func reloadTableView()
+    func controlData()
 }
 
 // MARK: - Main Func
@@ -21,7 +23,7 @@ final class NewsScreen: UIViewController {
     // MARK: - Variables
     private let viewModel = NewsViewModel()
     
-    
+    private var emptyStateView: EmptyStateView!
     
     private var tableView: UITableView!
     private var searchBar: UISearchBar!
@@ -86,9 +88,31 @@ extension NewsScreen: NewsScreenProtocol {
         ])
     }
     
+    func configureEmptyStateView() {
+        emptyStateView = EmptyStateView(imageSystemName: "magnifyingglass", message: "Search for news..")
+        view.addSubview(emptyStateView)
+        
+        NSLayoutConstraint.activate([
+            emptyStateView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyStateView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            emptyStateView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 30),
+            emptyStateView.heightAnchor.constraint(equalToConstant: 250)
+        ])
+    }
+    
     func reloadTableView() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
+        }
+    }
+    
+    func controlData() {
+        if viewModel.article.isEmpty {
+            emptyStateView.isHidden = false
+            tableView.isHidden = true
+        } else {
+            emptyStateView.isHidden = true
+            tableView.isHidden = false
         }
     }
 }
@@ -97,17 +121,34 @@ extension NewsScreen: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText != "" {
-            viewModel.getSerchedNews(for: searchText, at: 1)
+            emptyStateView.isHidden = true
+            tableView.isHidden = false
+            // page must be 1, article must be []
+            viewModel.reset(isQ: false, isP: true)
+            viewModel.query = searchText
+            viewModel.getSerchedNews(for: viewModel.query, at: 1)
         }
         else {
-            viewModel.getTopHeadlines(at: 1)
+//            viewModel.getTopHeadlines(at: 1)
+            
+            // query must be "", page must be 1, article must be []
+            viewModel.reset(isQ: true, isP: true)
+            
+            // TODO: - Empty State View
+            controlData()
         }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.text = ""
-        viewModel.getTopHeadlines(at: 1)
+//        viewModel.getTopHeadlines(at: 1)
+                
+        // query must be "", page must be 1, article must be []
+        viewModel.reset(isQ: true, isP: true)
+        
+        // TODO: - Empty State View
+        controlData()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -138,5 +179,19 @@ extension NewsScreen: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         CGFloat.dHeight / 6
+    }
+    
+    // If indicator is at nearly %80 of the screen, getSerchedNews function will call
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.size.height
+        
+        if offsetY >= contentHeight - (2 * height) {
+            if viewModel.query != "" {
+                viewModel.page += 1
+                viewModel.getSerchedNews(for: viewModel.query, at: viewModel.page)
+            }
+        }
     }
 }

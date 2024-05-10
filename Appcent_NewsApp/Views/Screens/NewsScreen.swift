@@ -49,6 +49,7 @@ extension NewsScreen: NewsScreenProtocol {
         searchBar.placeholder = "Enter a query..."
         searchBar.autocapitalizationType = .none
         searchBar.autocorrectionType = .no
+        searchBar.returnKeyType = .done
         
         searchBar.delegate = self
         
@@ -107,6 +108,10 @@ extension NewsScreen: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         searchBar.text = ""
         viewModel.getTopHeadlines(at: 1)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
 

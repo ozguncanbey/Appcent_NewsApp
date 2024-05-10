@@ -18,6 +18,7 @@ final class NewsDetailScreen: UIViewController {
     // MARK: - Variables
     private let viewModel = NewsDetailViewModel()
     
+    private var shareButton: UIBarButtonItem!
     private var favoriteButton: UIBarButtonItem!
     
     private let newsImageView = NewsImageView(frame: .zero)
@@ -143,8 +144,11 @@ extension NewsDetailScreen: NewsDetailScreenProtocol {
     func configureVC() {
         view.backgroundColor = .systemBackground
         
+        configureShareButton()
         configureFavoriteButton()
         updateFavoriteButtonIcon()
+        
+        navigationItem.rightBarButtonItems = [favoriteButton,shareButton]
         
         addSubviews()
         layoutUI()
@@ -152,9 +156,13 @@ extension NewsDetailScreen: NewsDetailScreenProtocol {
         goToURLButton.addTarget(self, action: #selector(goToURL), for: .touchUpInside)
     }
     
+    private func configureShareButton() {
+        shareButton = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareButtonTapped))
+    }
+    
     private func configureFavoriteButton() {
         favoriteButton = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(favoriteButtonTapped))
-        navigationItem.rightBarButtonItem = favoriteButton
+//        navigationItem.rightBarButtonItem = favoriteButton
     }
     
     private func addSubviews() {
@@ -206,6 +214,12 @@ extension NewsDetailScreen: NewsDetailScreenProtocol {
     
     private func updateFavoriteButtonIcon() {
         favoriteButton.image = isFavorited ?? false ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+    }
+    
+    @objc private func shareButtonTapped() {
+        guard let url = URL(string: viewModel.article._url) else { return }
+        let shareSheetVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        present(shareSheetVC, animated: true)
     }
     
     @objc private func favoriteButtonTapped() {

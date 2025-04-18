@@ -12,13 +12,14 @@ Appcent NewsApp is a classic news application developed in Swift using the UIKit
 - **Favorites**: Users can add news articles to their favorites list, which is accessible from the second page. Articles in the favorites list can be easily removed if desired.
 
 ## Screenshots
-![home](https://github.com/ozguncanbey/Appcent_NewsApp/assets/138692325/09294a60-9897-459e-849c-47fc63b71b8e)
-![fav](https://github.com/ozguncanbey/Appcent_NewsApp/assets/138692325/9227714a-27b6-4adf-8e9d-ef977501890e)
-![search](https://github.com/ozguncanbey/Appcent_NewsApp/assets/138692325/f1cb546d-6fd3-4149-a84b-2de494ab75c9)
-![detail](https://github.com/ozguncanbey/Appcent_NewsApp/assets/138692325/c587ee78-54b7-462b-b853-c6778dec6876)
-![share](https://github.com/ozguncanbey/Appcent_NewsApp/assets/138692325/bd1b989a-454a-4f3d-a8b0-153e9fe847b6)
-![favs](https://github.com/ozguncanbey/Appcent_NewsApp/assets/138692325/764b4466-86e2-4dbf-af5e-b904eaeebe74)
-![delete](https://github.com/ozguncanbey/Appcent_NewsApp/assets/138692325/60191c10-c6aa-4843-8db8-c4e58eb88053)
+<img src="https://github.com/ozguncanbey/Appcent_NewsApp/assets/138692325/09294a60-9897-459e-849c-47fc63b71b8e" width="200"/>
+<img src="https://github.com/ozguncanbey/Appcent_NewsApp/assets/138692325/9227714a-27b6-4adf-8e9d-ef977501890e" width="200"/>
+<img src="https://github.com/ozguncanbey/Appcent_NewsApp/assets/138692325/f1cb546d-6fd3-4149-a84b-2de494ab75c9" width="200"/>
+<img src="https://github.com/ozguncanbey/Appcent_NewsApp/assets/138692325/c587ee78-54b7-462b-b853-c6778dec6876" width="200"/>
+<img src="https://github.com/ozguncanbey/Appcent_NewsApp/assets/138692325/bd1b989a-454a-4f3d-a8b0-153e9fe847b6" width="200"/>
+<img src="https://github.com/ozguncanbey/Appcent_NewsApp/assets/138692325/764b4466-86e2-4dbf-af5e-b904eaeebe74" width="200"/>
+<img src="https://github.com/ozguncanbey/Appcent_NewsApp/assets/138692325/60191c10-c6aa-4843-8db8-c4e58eb88053" width="200"/>
+
 
 ## Installation
 
